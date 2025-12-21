@@ -1,0 +1,37 @@
+import { Injectable } from '@nestjs/common'
+import { ConfigService as NestConfigService } from '@nestjs/config'
+
+@Injectable()
+export class ConfigService {
+	constructor(private readonly nestConfigService: NestConfigService) {}
+
+	get(key: string): string {
+		const value = this.nestConfigService.get<string>(key)
+
+		if (value === undefined) {
+			throw new Error(`Environment variable ${key} is not defined`)
+		}
+
+		return value
+	}
+
+	getTelegramBotToken(): string {
+		return this.get('TELEGRAM_BOT_TOKEN')
+	}
+
+	getAiApiKey(): string {
+		return this.get('AI_API_KEY')
+	}
+
+	getAiApiModel(): number {
+		return Number(this.get('AI_API_MODEL'))
+	}
+
+	getAiApiUrl(): string {
+		return this.get('AI_API_URL')
+	}
+
+	getAiApiPrompt(): string {
+		return this.get('AI_API_PROMPT')
+	}
+}
