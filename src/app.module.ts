@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 import { NotificationModule } from './notification/notification.module'
 import { ConfigModule } from './shared/config/config.module'
@@ -9,8 +10,12 @@ import { TelegramModule } from './telegram/telegram.module'
 		ConfigModule,
 		TelegramModule,
 		NotificationModule,
-		MongooseModule.forRoot('mongodb://localhost:27017/solace'),
+		MongooseModule.forRootAsync({
+			inject: [ConfigService],
+			useFactory: (config: ConfigService) => ({
+				uri: config.get('MONGO_URI'),
+			}),
+		}),
 	],
-	providers: [],
 })
 export class AppModule {}
