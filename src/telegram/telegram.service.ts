@@ -1,4 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
+import { utcToGMT } from 'src/shared/utils/date.util'
 import { Telegraf } from 'telegraf'
 import { NotificationService } from '../notification/notification.service'
 import { ConfigService } from '../shared/config/config.service'
@@ -24,10 +25,19 @@ export class TelegramService implements OnModuleInit {
 
 		this.bot.on('text', async ctx => {
 			try {
+				const GMT_OFFSET = Number(this.configService.getTimeZone())
 				const chatId = ctx.chat.id.toString()
-				const userMessage = ctx.message.text + ctx.message.date.toString()
+				const userMessage = ctx.message.text
 				const addedNotification =
-					await this.notificationService.addNotification(userMessage, chatId)
+					await this.notificationService.addNotification(
+						userMessage,
+						chatId,
+						GMT_OFFSET
+					)
+
+				addedNotification.reminders = addedNotification.reminders.map(
+					reminder => utcToGMT(reminder, GMT_OFFSET)
+				)
 
 				const message = getFormattedText(addedNotification)
 				try {

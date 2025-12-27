@@ -15,6 +15,10 @@ export class ConfigService {
 		return value
 	}
 
+	getTimeZone(): string {
+		return this.get('TIME_ZONE')
+	}
+
 	getTelegramBotToken(): string {
 		return this.get('TELEGRAM_BOT_TOKEN')
 	}
