@@ -19,7 +19,7 @@ export class NotificationScheduler {
 	async handleReminders() {
 		const now = new Date()
 		const lastMinute = new Date(now.getTime() - 60_000)
-		console.log(now, '\n', lastMinute)
+
 		const notifications = await this.notificationModel.find({
 			reminders: {
 				$elemMatch: {
@@ -38,7 +38,7 @@ export class NotificationScheduler {
 				],
 			},
 		})
-		console.log('******************\n')
+
 		for (const notification of notifications) {
 			console.log('Notification:', notification)
 			const dueReminders = notification.reminders.filter(
@@ -75,6 +75,5 @@ export class NotificationScheduler {
 				}
 			}
 		}
-		console.log('******************\n')
 	}
 }
