@@ -38,8 +38,9 @@ export class NotificationScheduler {
 				],
 			},
 		})
-
+		console.log('******************\n')
 		for (const notification of notifications) {
+			console.log('Notification:', notification)
 			const dueReminders = notification.reminders.filter(
 				r =>
 					r >= lastMinute &&
@@ -74,5 +75,6 @@ export class NotificationScheduler {
 				}
 			}
 		}
+		console.log('******************\n')
 	}
 }
