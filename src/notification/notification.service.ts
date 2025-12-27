@@ -15,13 +15,11 @@ export class NotificationService {
 
 	async addNotification(
 		userMessage: string,
-		chatId: string,
-		gmtOffset: number
+		chatId: string
 	): Promise<INotification> {
 		const notificationDto = await this.aiClient.getAIResponse(
 			userMessage,
-			chatId,
-			gmtOffset
+			chatId
 		)
 
 		if (!notificationDto) {
