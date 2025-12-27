@@ -25,7 +25,7 @@ export class TelegramService implements OnModuleInit {
 		this.bot.on('text', async ctx => {
 			try {
 				const chatId = ctx.chat.id.toString()
-				const userMessage = ctx.message.text
+				const userMessage = ctx.message.text + ctx.message.date.toString()
 				const addedNotification =
 					await this.notificationService.addNotification(userMessage, chatId)
 
