@@ -19,6 +19,10 @@ export class ConfigService {
 		return this.get('TELEGRAM_BOT_TOKEN')
 	}
 
+	getTelegramBotStartMessage(): string {
+		return this.get('TELEGRAM_BOT_START_MESSAGE')
+	}
+
 	getAiApiKey(): string {
 		return this.get('AI_API_KEY')
 	}
