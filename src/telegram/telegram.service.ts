@@ -24,7 +24,7 @@ export class TelegramService implements OnModuleInit {
 
 	onModuleInit() {
 		this.bot.start(ctx => {
-			ctx.reply(this.configService.getTelegramBotStartMessage())
+			ctx.reply(INFO_MESSAGES.WELCOME)
 		})
 
 		this.bot.on('text', async ctx => {
