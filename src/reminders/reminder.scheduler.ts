@@ -2,12 +2,12 @@ import { Injectable, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Cron, CronExpression } from '@nestjs/schedule'
 import { Model } from 'mongoose'
+import { Notification } from '../notification/notification.schema'
 import { TelegramService } from '../telegram/telegram.service'
-import { Notification } from './notification.schema'
 
 @Injectable()
-export class NotificationScheduler {
-	private readonly logger = new Logger(NotificationScheduler.name)
+export class ReminderScheduler {
+	private readonly logger = new Logger(ReminderScheduler.name)
 
 	constructor(
 		@InjectModel(Notification.name)

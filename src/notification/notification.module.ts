@@ -1,9 +1,7 @@
-import { Module, forwardRef } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { AIClient } from '../shared/apiClient/AIClient'
+import { AIClientModule } from '../shared/apiClient/aiClient.module'
 import { ConfigModule } from '../shared/config/config.module'
-import { TelegramModule } from '../telegram/telegram.module'
-import { NotificationScheduler } from './notification.scheduler'
 import { NotificationSchema } from './notification.schema'
 import { NotificationService } from './notification.service'
 
@@ -13,9 +11,9 @@ import { NotificationService } from './notification.service'
 			{ name: 'Notification', schema: NotificationSchema },
 		]),
 		ConfigModule,
-		forwardRef(() => TelegramModule),
+		AIClientModule,
 	],
-	providers: [NotificationService, AIClient, NotificationScheduler],
+	providers: [NotificationService],
 	exports: [NotificationService],
 })
 export class NotificationModule {}
