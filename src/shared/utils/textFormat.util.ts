@@ -16,3 +16,9 @@ export function getResponseTextForNotification(
 Напоминания:
 ${reminderTimes}\n`
 }
+
+export function extractFirstJson(text: string): any {
+	const match = text.match(/\{[\s\S]*\}/)
+	if (!match) throw new Error('JSON not found')
+	return JSON.parse(match[0])
+}

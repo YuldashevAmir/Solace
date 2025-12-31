@@ -6,6 +6,7 @@ import { gmtToUTC } from 'src/shared/utils/date.util'
 import { aiClientService } from '../shared/apiClient/aiClient.service'
 import { Notification } from './notification.schema'
 import { INotification } from './notification.types'
+import { extractFirstJson } from 'src/shared/utils/textFormat.util'
 
 @Injectable()
 export class NotificationService {
@@ -33,13 +34,15 @@ export class NotificationService {
 			notificationPrompt
 		)
 
+		console.log(aiResponse)
+
 		if (!aiResponse) {
 			this.logger.error(`Failed to get AI response for chat ${chatId}`)
 			throw new Error('Failed to get a valid response from AI service')
 		}
 
 		const parsedAiResponse =
-			typeof aiResponse === 'string' ? JSON.parse(aiResponse) : aiResponse
+			typeof aiResponse === 'string' ? extractFirstJson(aiResponse) : aiResponse
 
 		const notification = {
 			...parsedAiResponse,
