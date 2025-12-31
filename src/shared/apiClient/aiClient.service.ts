@@ -39,7 +39,7 @@ export class aiClientService {
 					messages: [
 						{
 							role: 'user',
-							content: `${prompt}\nUser Message: ${userMessage}`,
+							content: `${prompt}\nToday is ${new Date().toISOString().split('T')[0]} \nUser Message: ${userMessage}`,
 						},
 					],
 					reasoning: { enabled: true },
